@@ -1,0 +1,101 @@
+﻿@page "/"
+
+
+<h1>Calculator on Blazor</h1>
+
+<div class="calculatorWrapper">
+    <div class="textBar">
+        <span class="valueSecond">@calc.valueSecond</span>
+        <span class="valueFirst">@calc.valueFirst</span>
+    </div>
+
+    <div class="buttonRow">
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => calc.buttonClick(5)">%</button>
+        @if (calcCI.flag)
+        {
+            <button type="button" class="btn defBtn defBtn-menuActive" @onclick="() => calcCI.ShowCompoundInterestMenu()">Menu</button>
+        }
+        else
+        {
+            <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => calcCI.ShowCompoundInterestMenu()">Menu</button>
+        }
+
+        <button type="button" class="btn defBtn defBtn-correct" @onclick="() => calc.Clear(0)">C</button>
+        <button type="button" class="btn defBtn defBtn-correct" @onclick="() => calc.Clear(1)">CE</button>
+    </div>
+
+    <div class="buttonRow">
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => calc.buttonClick(6)">1/x</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => calc.buttonClick(7)">x²</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => calc.buttonClick(8)">√x</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => calc.buttonClick(4)">/</button>
+    </div>
+
+    <div class="buttonRow">
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => calc.buttonClick('7'.ToString())">7</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => calc.buttonClick('8'.ToString())">8</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => calc.buttonClick('9'.ToString())">9</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => calc.buttonClick(3)">X</button>
+    </div>
+
+    <div class="buttonRow">
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => calc.buttonClick('4'.ToString())">4</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => calc.buttonClick('5'.ToString())">5</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => calc.buttonClick('6'.ToString())">6</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => calc.buttonClick(2)">-</button>
+    </div>
+
+    <div class="buttonRow">
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => calc.buttonClick('1'.ToString())">1</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => calc.buttonClick('2'.ToString())">2</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => calc.buttonClick('3'.ToString())">3</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => calc.buttonClick(1)">+</button>
+    </div>
+
+    <div class="buttonRow">
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => calc.buttonClick('.'.ToString())">.</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => calc.buttonClick('0'.ToString())">0</button>
+        <button type="button" class="btn defBtn defBtn-result " @onclick="() => calc.Calculate()">=</button>
+    </div>
+
+    @if (calcCI.flag)
+    {
+<div class="CImenuWrapper">
+    <h4>Compount interest calculation</h4>
+
+    <div class="inputRow">
+        <input class="inputString" placeholder="Start sum" @bind="calcCI.StartSum" />
+        <input class="inputString" placeholder="% in year" @bind="calcCI.PercentsInYear" />
+    </div>
+    <div class="inputRow">
+        <input class="inputString" placeholder="Times add.sum" @bind="calcCI.TimesAddSum" />
+        <input class="inputString" placeholder="Q-ty years" @bind="calcCI.Years" />
+    </div>
+
+    <button type="button" class="btn defBtn defBtn-clcCI"
+            @onclick="() => calcCI.CalculateCI(calcCI.StartSum, calcCI.PercentsInYear, calcCI.TimesAddSum, calcCI.Years)">
+        Calculate CI
+    </button>
+
+        
+    <br />
+    @if (calcCI.IncorrectInputCI)
+    {
+        <h4>Incorrect input!</h4>
+    }
+    else
+    {
+        <h4>@calcCI.valueCI</h4>
+    }
+
+</div>
+                
+    }
+
+</div>
+
+@code
+{
+    Calculator calc = new Calculator();
+    CalculatorCI calcCI = new CalculatorCI();
+}
