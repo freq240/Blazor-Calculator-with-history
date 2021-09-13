@@ -1,0 +1,50 @@
+﻿@inject CalculatorCIService calcCI
+
+
+<div class="buttonRow">
+    @if (calcCI.calc.FlagCImenuActive)
+    {
+        <button type="button" class="btn defBtn defBtn-menuActive defBtn-CImenu" @onclick="() => calcCI.ShowCompoundInterestMenu()">Menu</button>
+    }
+    else
+    {
+        <button type="button" class="btn defBtn defBtn-opperation defBtn-CImenu" @onclick="() => calcCI.ShowCompoundInterestMenu()">Menu</button>
+    }
+    </div>
+
+
+
+
+@if (calcCI.calc.FlagCImenuActive)
+{
+    <div class="CImenuWrapper">
+        <h4>Compount interest calculation</h4>
+
+        <div class="inputRow">
+            <input class="inputString" placeholder="Start sum" @bind="calcCI.calc.StartSum" />
+            <input class="inputString" placeholder="% in year" @bind="calcCI.calc.PercentsInYear" />
+        </div>
+        <div class="inputRow">
+            <input class="inputString" placeholder="Times add.sum" @bind="calcCI.calc.TimesAddSum" />
+            <input class="inputString" placeholder="Q-ty years" @bind="calcCI.calc.Years" />
+        </div>
+
+        <button type="button" class="btn defBtn defBtn-clcCI"
+                @onclick="() => calcCI.Calculate(calcCI.calc.StartSum, calcCI.calc.PercentsInYear, calcCI.calc.TimesAddSum, calcCI.calc.Years)">
+            Calculate CI
+        </button>
+
+
+        <br />
+        @if (calcCI.calc.IncorrectInputCI)
+        {
+            <h4>Incorrect input!</h4>
+        }
+        else
+        {
+            <h4>@calcCI.calc.ValueCI</h4>
+        }
+
+    </div>
+
+}
