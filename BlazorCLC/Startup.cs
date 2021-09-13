@@ -1,4 +1,6 @@
-using BlazorCLC.Data;
+using BlazorCLC.Extensions;
+using BlazorCLC.Interfaces;
+using BlazorCLC.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -26,8 +28,11 @@ namespace BlazorCLC
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<Calculator>();
-            services.AddSingleton<CalculatorCI>();
+
+            services.AddTransient<ICalculator, Calculator>();
+            services.AddTransient<ICalculatorCI, CalculatorCI>();
+            services.AddCalculator();
+            services.AddCalculatorCI();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
