@@ -25,10 +25,12 @@ namespace BlazorCLC.Services
 
             if (calc.FlagCImenuActive)
             {
+                logger.Add($"Closed CI menu");
                 calc.FlagCImenuActive = false;
             }
             else
             {
+                logger.Add($"Opened CI menu");
                 calc.FlagCImenuActive = true;
             }
         }
@@ -51,6 +53,7 @@ namespace BlazorCLC.Services
                     calc.IncorrectInputCI = false;
 
                     calc.ValueCI = P * Math.Pow((1 + (i / 100.0) / n), (n * t));
+                    logger.Add($"Calculated CI");
                 }
 
                 

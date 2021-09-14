@@ -6,7 +6,7 @@
 <div class="history-wrapper">
 
     <div class="history-point-wrapper">
-         
+
         <div class="history-args">
             <span class="history-param1a">ID</span>
             <span class="history-param2a">Datetime</span>
@@ -15,16 +15,15 @@
 
         @foreach (var historyPoint in HistoryLoggerService.historyPoints)
         {
-        <div class="history-point">
-            <span class="history-param1">@historyPoint.Id</span>
-            <span class="history-param2">@historyPoint.Datetime</span>
-            <span class="history-param3">@historyPoint.Action</span>
-            <br />
+            <div class="history-point">
+                <span class="history-param1">@historyPoint.Id</span>
+                <span class="history-param2">@historyPoint.Datetime</span>
+                <span class="history-param3">@historyPoint.Action</span>
+                <br />
 
-        </div>
+            </div>
         }
 
     </div>
 
 </div>
-
