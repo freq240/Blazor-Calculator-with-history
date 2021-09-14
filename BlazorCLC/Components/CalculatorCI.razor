@@ -1,6 +1,7 @@
 ﻿@inject CalculatorCIService calcCI
 
 
+
 <div class="buttonRow">
     @if (calcCI.calc.FlagCImenuActive)
     {
@@ -10,7 +11,7 @@
     {
         <button type="button" class="btn defBtn defBtn-opperation defBtn-CImenu" @onclick="() => calcCI.ShowCompoundInterestMenu()">Menu</button>
     }
-    </div>
+</div>
 
 
 
