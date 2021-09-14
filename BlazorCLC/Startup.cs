@@ -34,10 +34,9 @@ namespace BlazorCLC
             services.AddTransient<ICalculator, Calculator>();
             services.AddTransient<ICalculatorCI, CalculatorCI>();
 
-            services.AddSingleton<IHistoryLoggerService ,HistoryLoggerService>();
-
-            services.AddCalculator();
-            services.AddCalculatorCI();
+            services.AddHistoryLoggerService();
+            services.AddCalculatorService();
+            services.AddCalculatorCIService();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

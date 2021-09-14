@@ -28,5 +28,22 @@ namespace BlazorCLC.Services
             return historyPoints.ToArray().ToString();
         }
 
+        static public void DeleteById(int id)
+        {
+            try
+            {
+                historyPoints.RemoveAt(id - 1);
+                for (int i = 0; i < historyPoints.Count; i++)
+                {
+                    historyPoints[i].Id = i + 1;
+                }
+            }
+            catch
+            {
+                // ID IS NOT FOUND
+            }
+            
+        }
+
     }
 }

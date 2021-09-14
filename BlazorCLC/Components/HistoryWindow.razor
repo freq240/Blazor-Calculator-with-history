@@ -1,0 +1,57 @@
+﻿@using BlazorCLC.Services
+
+<div class="history-wrapper">
+
+    <div class="history-point-wrapper">
+
+        <div class="history-args">
+            <span class="history-param1a">ID</span>
+            <span class="history-param2a">Datetime</span>
+            <span class="history-param3a">Action</span>
+        </div>
+
+        @foreach (var historyPoint in HistoryLoggerService.historyPoints)
+        {
+            <div class="history-point">
+                <span class="history-param1">@historyPoint.Id</span>
+                <span class="history-param2">@historyPoint.Datetime</span>
+                <span class="history-param3">@historyPoint.Action</span>
+                <br />
+
+            </div>
+        }
+
+        <br />
+
+        <div class="inputRow">
+            <input class="inputString" placeholder="Index" @bind="Id" />
+        </div>
+
+        <button type="button" class="btn defBtn defBtn-clcCI defBtn-correct"
+                @onclick="() => CheckCorrectIdAndDeleteById(Id)">
+            Delete
+        </button>
+
+
+
+    </div>
+
+</div>
+
+
+@code
+{
+    private string Id { get; set; }
+
+    private void CheckCorrectIdAndDeleteById(string id)
+    {
+        try
+        {
+            HistoryLoggerService.DeleteById(Convert.ToInt32(Id));
+        }
+        catch
+        {
+            // Some exception
+        }
+    }
+}

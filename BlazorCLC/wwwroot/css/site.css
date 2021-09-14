@@ -13,6 +13,10 @@ h1 {
         text-align:center;
     }
 
+.history-point {
+    border:1px solid gray; 
+}
+
 h4 {
     color: dimgray;
     text-align: center;

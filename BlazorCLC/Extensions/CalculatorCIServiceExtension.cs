@@ -4,9 +4,9 @@ using BlazorCLC.Interfaces;
 
 namespace BlazorCLC.Extensions
 {
-    public static class CalculatorCIExtension
+    public static class CalculatorCIServiceExtension
     {
-        public static void AddCalculatorCI(this IServiceCollection services)
+        public static void AddCalculatorCIService(this IServiceCollection services)
         {
             services.AddSingleton<CalculatorCIService>();
         }
