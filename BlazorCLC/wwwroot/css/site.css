@@ -25,6 +25,81 @@ h4 {
         text-align: center;
     }
 
+.sidebar {
+    width:180px;
+    height: auto;
+    text-align:left;
+    
+}
+    .sidebar .oi {
+        width: 2rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        vertical-align: text-top;
+        top: -2px;
+    }
+
+.history-wrapper {
+    width: 1000px;
+    padding: 10px;
+    margin: auto;
+    border: 2px solid gray;
+    background-color: whitesmoke;
+    font-family:Bahnschrift;
+}
+.history-point-wrapper {
+    margin-top: 2px;
+}
+
+
+.history-args{
+    font-size:20px;
+    font-weight:600;
+}
+
+.history-param1a {
+    margin-left: 25px;
+}
+
+.history-param2a {
+    margin-left: 310px;
+    margin-right: 330px;
+}
+
+.history-param3a {
+    margin-right: 25px;
+}
+
+.history-param1{
+    margin-left: 25px;
+}
+.history-param2 {
+    margin-left: 285px;
+    margin-right: 270px;
+    
+}
+.history-param3 {
+    margin-right:25px;
+}
+.history-param-last {
+    margin-left: 2%;
+}
+
+.history-point{
+    margin-top:7px;
+}
+
+.nav-link{
+    margin:5px 5px 5px 5px;
+}
+.nav-link:hover {
+    background-color:lightgrey;
+}
+.btnNavMenu {
+    color: black;
+    font-size: 1.4rem;
+    position: center;
+}
 .CImenuWrapper {
     width: 322px;
     margin-left: 13px;

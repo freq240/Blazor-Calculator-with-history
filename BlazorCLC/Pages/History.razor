@@ -1,0 +1,30 @@
+﻿@page "/history"
+
+@using BlazorCLC.Services
+
+<title>History</title>
+<div class="history-wrapper">
+
+    <div class="history-point-wrapper">
+         
+        <div class="history-args">
+            <span class="history-param1a">ID</span>
+            <span class="history-param2a">Datetime</span>
+            <span class="history-param3a">Action</span>
+        </div>
+
+        @foreach (var historyPoint in HistoryLoggerService.historyPoints)
+        {
+        <div class="history-point">
+            <span class="history-param1">@historyPoint.Id</span>
+            <span class="history-param2">@historyPoint.Datetime</span>
+            <span class="history-param3">@historyPoint.Action</span>
+            <br />
+
+        </div>
+        }
+
+    </div>
+
+</div>
+

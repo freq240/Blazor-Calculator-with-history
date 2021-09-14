@@ -5,16 +5,18 @@ using System.Threading.Tasks;
 using BlazorCLC.Models;
 using BlazorCLC.Interfaces;
 
+
 namespace BlazorCLC.Services
 {
     public class CalculatorService : ICalculatorService
     {
         public ICalculator calc;
+        public IHistoryLoggerService logger;
 
-
-        public CalculatorService(ICalculator _calc)
+        public CalculatorService(ICalculator _calc, IHistoryLoggerService _logger)
         {
             this.calc = _calc;
+            this.logger = _logger;
         }
 
         // digits
@@ -26,13 +28,16 @@ namespace BlazorCLC.Services
                 if (!(calc.ValueFirst.Contains(".") && text == "."))
                 {
                     calc.ValueFirst += text;
+
+                    logger.Add($"Clicked on '{text}' digit");
                 }
             }
             else
             {
                 calc.ValueFirst += text;
-            }
 
+                logger.Add($"Clicked on '{text}' digit");
+            }
         }
 
         // operation
@@ -43,27 +48,40 @@ namespace BlazorCLC.Services
                 calc.DigitFirst = double.Parse(calc.ValueFirst);
                 calc.ValueFirst = "";
                 calc.Operation = operation;
+
                 switch (operation)
                 {
                     case 1:
                         calc.ValueSecond = calc.DigitFirst.ToString() + " + ";
+                        logger.Add($"Clicked on '+' opperation");
                         break;
                     case 2:
                         calc.ValueSecond = calc.DigitFirst.ToString() + " - ";
+                        logger.Add($"Clicked on '-' opperation");
                         break;
                     case 3:
                         calc.ValueSecond = calc.DigitFirst.ToString() + " * ";
+                        logger.Add($"Clicked on '*' opperation");
                         break;
                     case 4:
                         calc.ValueSecond = calc.DigitFirst.ToString() + " / ";
+                        logger.Add($"Clicked on '/' opperation");
                         break;
                     case 5:
                         calc.ValueSecond = calc.DigitFirst.ToString() + " % ";
+                        logger.Add($"Clicked on '%' opperation");
                         break;
                     case 6:
+                        Calculate();
+                        logger.Add($"Clicked on '1/x' opperation");
+                        break;
                     case 7:
+                        Calculate();
+                        logger.Add($"Clicked on 'x^2' opperation");
+                        break;
                     case 8:
                         Calculate();
+                        logger.Add($"Clicked on 'sqrt(x)' opperation");
                         break;
                     default:
                         break;
@@ -74,6 +92,8 @@ namespace BlazorCLC.Services
 
         public void Calculate()
         {
+            logger.Add($"Clicked on '=' operation");
+            
             calc.ValueSecond = "";
             try
             {
@@ -120,8 +140,6 @@ namespace BlazorCLC.Services
             {
 
             }
-
-
         }
 
         public void Clear(int x)
@@ -130,6 +148,7 @@ namespace BlazorCLC.Services
             switch (x)
             {
                 case 0:
+                    logger.Add($"Cleared all");
 
                     // Delete and clear all
                     calc.ValueFirst = "";
@@ -141,6 +160,7 @@ namespace BlazorCLC.Services
 
                     if (calc.ValueFirst != null)
                     {
+                        logger.Add($"Deleted last symbol");
                         int length = calc.ValueFirst.Length - 1;
                         string line = calc.ValueFirst;
                         calc.ValueFirst = "";
@@ -150,7 +170,6 @@ namespace BlazorCLC.Services
                         }
                     }
                     break;
-
 
                 default:
                     break;

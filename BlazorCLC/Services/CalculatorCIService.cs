@@ -10,14 +10,19 @@ namespace BlazorCLC.Services
     public class CalculatorCIService: ICalculatorCIService
     {
         public ICalculatorCI calc;
+        public IHistoryLoggerService logger;
 
-        public CalculatorCIService(ICalculatorCI _calc)
+        public CalculatorCIService(ICalculatorCI _calc, IHistoryLoggerService _logger)
         {
             this.calc = _calc;
+            this.logger = _logger;
+            
         }
 
         public void ShowCompoundInterestMenu()
         {
+            
+
             if (calc.FlagCImenuActive)
             {
                 calc.FlagCImenuActive = false;

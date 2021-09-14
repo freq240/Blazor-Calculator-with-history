@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using BlazorCLC.Services;
+using BlazorCLC.Interfaces;
+
 namespace BlazorCLC.Extensions
 {
     public static class CalculatorCIExtension

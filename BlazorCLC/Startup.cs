@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace BlazorCLC
 {
@@ -32,6 +33,9 @@ namespace BlazorCLC
 
             services.AddTransient<ICalculator, Calculator>();
             services.AddTransient<ICalculatorCI, CalculatorCI>();
+
+            services.AddSingleton<IHistoryLoggerService ,HistoryLoggerService>();
+
             services.AddCalculator();
             services.AddCalculatorCI();
         }
@@ -58,6 +62,7 @@ namespace BlazorCLC
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
         }
     }
 }
