@@ -31,6 +31,7 @@ namespace BlazorCLC
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
+
             services.AddTransient<ICalculator, Calculator>();
             services.AddTransient<ICalculatorCI, CalculatorCI>();
 

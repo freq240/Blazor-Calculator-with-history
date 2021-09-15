@@ -53,7 +53,7 @@ namespace BlazorCLC.Services
                     calc.IncorrectInputCI = false;
 
                     calc.ValueCI = P * Math.Pow((1 + (i / 100.0) / n), (n * t));
-                    logger.Add($"Calculated CI");
+                    logger.Add($"Calculated CI({P},{i},{n},{t})");
                 }
 
                 
