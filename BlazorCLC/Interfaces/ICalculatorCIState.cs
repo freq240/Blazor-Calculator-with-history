@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlazorCLC.Interfaces
 {
-    public interface ICalculatorCI
+    public interface ICalculatorCIState
     {
         public string StartSum { get; set; }
         public string PercentsInYear { get; set; }

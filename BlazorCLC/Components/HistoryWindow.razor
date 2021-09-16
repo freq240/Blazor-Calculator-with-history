@@ -13,7 +13,7 @@
         </div>
 
 
-        @foreach (var historyPoint in HistoryLoggerService.historyPoints)
+        @foreach (var historyPoint in HistoryLoggerService.GetHistoryPoints())
         {
             <div class="history-point">
                 <span class="history-param1">@historyPoint.Id</span>
@@ -38,27 +38,3 @@
     </button>
 
 </div>
-
-
-@code
-{
-    private string DeletedId { get; set; }
-
-
-    public IEnumerable<HistoryPoint> s = HistoryLoggerService.historyPoints.Where(p => p.Id < 5);
-
-
-    private void CheckCorrectIdAndDeleteById(string id)
-    {
-        try
-        {
-            HistoryLoggerService.DeleteById(Convert.ToInt32(id));
-        }
-        catch
-        {
-            // Some exception
-        }
-    }
-
-
-}

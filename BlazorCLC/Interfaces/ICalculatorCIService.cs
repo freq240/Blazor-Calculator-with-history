@@ -7,7 +7,6 @@ namespace BlazorCLC.Interfaces
 {
     public interface ICalculatorCIService
     {
-        public void ShowCompoundInterestMenu();
-        public void Calculate(string startSum, string percentInYear, string times, string years);
+        public double Calculate(double startSum, double percentInYear, int times, int years);
     }
 }

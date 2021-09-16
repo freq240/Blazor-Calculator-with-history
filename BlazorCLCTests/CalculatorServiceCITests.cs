@@ -17,7 +17,7 @@ namespace BlazorCLCTests
         [SetUp]
         public void Setup()
         {
-            calculatorCIService = new CalculatorCIService(new CalculatorCI());
+            calculatorCIService = new CalculatorCIService(new CalculatorCIState());
         }
 
         [Test]

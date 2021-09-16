@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlazorCLC.Interfaces
 {
-    public interface ICalculator
+    public interface ICalculatorState
     {
         public string ValueFirst { get; set; }
         public string ValueSecond { get; set; }

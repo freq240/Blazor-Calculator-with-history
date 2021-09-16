@@ -1,47 +1,46 @@
-﻿@inject CalculatorCIService calcCI
-
+﻿
 <div class="buttonRow">
-    @if (calcCI.calc.FlagCImenuActive)
+    @if (CalculatorCIState.FlagCImenuActive)
     {
-        <button type="button" class="btn defBtn defBtn-menuActive defBtn-CImenu" @onclick="() => calcCI.ShowCompoundInterestMenu()">Menu</button>
+        <button type="button" class="btn defBtn defBtn-menuActive defBtn-CImenu" @onclick="() => ShowCompoundInterestMenu()">Menu</button>
     }
     else
     {
-        <button type="button" class="btn defBtn defBtn-opperation defBtn-CImenu" @onclick="() => calcCI.ShowCompoundInterestMenu()">Menu</button>
+        <button type="button" class="btn defBtn defBtn-opperation defBtn-CImenu" @onclick="() => ShowCompoundInterestMenu()">Menu</button>
     }
 </div>
 
 
 
 
-@if (calcCI.calc.FlagCImenuActive)
+@if (CalculatorCIState.FlagCImenuActive)
 {
     <div class="CImenuWrapper">
         <h4>Compount interest calculation</h4>
 
         <div class="inputRow">
-            <input class="inputString" placeholder="Start sum" @bind="calcCI.calc.StartSum" />
-            <input class="inputString" placeholder="% in year" @bind="calcCI.calc.PercentsInYear" />
+            <input class="inputString" placeholder="Start sum" @bind="CalculatorCIState.StartSum" />
+            <input class="inputString" placeholder="% in year" @bind="CalculatorCIState.PercentsInYear" />
         </div>
         <div class="inputRow">
-            <input class="inputString" placeholder="Times add.sum" @bind="calcCI.calc.TimesAddSum" />
-            <input class="inputString" placeholder="Q-ty years" @bind="calcCI.calc.Years" />
+            <input class="inputString" placeholder="Times add.sum" @bind="CalculatorCIState.TimesAddSum" />
+            <input class="inputString" placeholder="Q-ty years" @bind="CalculatorCIState.Years" />
         </div>
 
         <button type="button" class="btn defBtn defBtn-clcCI"
-                @onclick="() => calcCI.Calculate(calcCI.calc.StartSum, calcCI.calc.PercentsInYear, calcCI.calc.TimesAddSum, calcCI.calc.Years)">
+                @onclick="() => CalculateWrapper(CalculatorCIState.StartSum, CalculatorCIState.PercentsInYear, CalculatorCIState.TimesAddSum, CalculatorCIState.Years)">
             Calculate CI
         </button>
 
 
         <br />
-        @if (calcCI.calc.IncorrectInputCI)
+        @if (CalculatorCIState.IncorrectInputCI)
         {
             <h4>Incorrect input!</h4>
         }
         else
         {
-            <h4>@calcCI.calc.ValueCI</h4>
+            <h4>@CalculatorCIState.ValueCI</h4>
         }
 
     </div>

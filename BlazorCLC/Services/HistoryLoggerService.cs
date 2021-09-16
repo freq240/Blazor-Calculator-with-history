@@ -9,26 +9,22 @@ namespace BlazorCLC.Services
 {
     public class HistoryLoggerService : IHistoryLoggerService
     {
-        public static List<HistoryPoint> historyPoints { get; set; } = new List<HistoryPoint>();
+        private List<HistoryPoint> historyPoints { get; set; } = new List<HistoryPoint>();
         
-        
+      
         public void Add(string action)
         {
-            var historyPoint = new HistoryPoint();
-
-            historyPoint.Id = historyPoints.Count + 1;
-            historyPoint.Datetime = DateTime.Now;
-            historyPoint.Action = action;
+            var historyPoint = new HistoryPoint(historyPoints.Count + 1, action);
 
             historyPoints.Add(historyPoint);
         }
 
-        public string Show()
+        public IEnumerable<HistoryPoint> GetHistoryPoints()
         {
-            return historyPoints.ToArray().ToString();
+            return historyPoints.Select(x => x);
         }
 
-        static public void DeleteById(int id)
+        public void DeleteById(int id)
         {
             try
             {

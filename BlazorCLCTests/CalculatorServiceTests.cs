@@ -17,7 +17,7 @@ namespace BlazorCLCTests
         [SetUp]
         public void SetUp()
         {
-            calculatorService = new CalculatorService(new Calculator());
+            calculatorService = new CalculatorService(new CalculatorState());
         }
 
         // Help-methods
@@ -352,7 +352,7 @@ namespace BlazorCLCTests
         
         public void Test()
         {
-            var mock = new Mock<CalculatorService>(new Calculator());
+            var mock = new Mock<CalculatorService>(new CalculatorState());
 
             mock.Setup(x => x.Calculate()).Verifiable();
             calculatorService.ButtonClick(6);

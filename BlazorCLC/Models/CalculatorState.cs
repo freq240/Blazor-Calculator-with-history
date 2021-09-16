@@ -6,7 +6,7 @@ using BlazorCLC.Interfaces;
 
 namespace BlazorCLC.Models
 {
-    public class Calculator : ICalculator
+    public class CalculatorState : ICalculatorState
     {
         public string ValueFirst { get; set; }
         public string ValueSecond { get; set; }

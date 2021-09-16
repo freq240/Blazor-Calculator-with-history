@@ -6,7 +6,7 @@ using BlazorCLC.Interfaces;
 
 namespace BlazorCLC.Models
 {
-    public class CalculatorCI: ICalculatorCI
+    public class CalculatorCIState: ICalculatorCIState
     {
         public string StartSum { get; set; }
         public string PercentsInYear { get; set; }

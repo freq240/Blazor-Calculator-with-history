@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorCLC.Core\BlazorCLC.Core.csproj" />
+    <ProjectReference Include="..\BlazorCLC.Infrast\BlazorCLC.Infrast.csproj" />
+  </ItemGroup>
+
 </Project>
