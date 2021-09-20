@@ -18,7 +18,7 @@ namespace BlazorCLC.Extensions
 
             services.AddSingleton<ICalculatorCIService, CalculatorCIService>();
             services.AddSingleton<ICalculatorService, CalculatorService>();
-            services.AddSingleton<IHistoryLoggerService, HistoryLoggerService>();
+            services.AddScoped<IHistoryLoggerService, HistoryLoggerService>();
         }
     }
 }

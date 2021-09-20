@@ -11,12 +11,8 @@ namespace BlazorCLC.Infrastract
         public HistoryLoggerContext(DbContextOptions<HistoryLoggerContext> options) : base(options)
         { }
 
-        private DbSet<HistoryPoint> HistoryPoints { get; set; }
+        public DbSet<HistoryPoint> HistoryPoints { get; set; }
 
-        public DbSet<HistoryPoint> GetHistoryPoints()
-        {
-            return HistoryPoints;
-        }
     }
 }
 

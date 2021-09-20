@@ -35,14 +35,14 @@ namespace BlazorCLC.Components
                 {
                     CalculatorState.ValueFirst += symbol;
 
-                    HistoryLogger.Add($"Clicked on '{symbol}' digit");
+                    HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '{symbol}' digit"));
                 }
             }
             else
             {
                 CalculatorState.ValueFirst += symbol;
 
-                HistoryLogger.Add($"Clicked on '{symbol}' digit");
+                HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '{symbol}' digit"));
             }
         }
 
@@ -59,35 +59,35 @@ namespace BlazorCLC.Components
                 {
                     case (int)Operations.Add:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " + ";
-                        HistoryLogger.Add($"Clicked on '+' opperation");
+                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '+' opperation"));
                         break;
                     case (int)Operations.Subtract:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " - ";
-                        HistoryLogger.Add($"Clicked on '-' opperation");
+                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '-' opperation"));
                         break;
                     case (int)Operations.Multiplication:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " * ";
-                        HistoryLogger.Add($"Clicked on '*' opperation");
+                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '*' opperation"));
                         break;
                     case (int)Operations.Division:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " / ";
-                        HistoryLogger.Add($"Clicked on '/' opperation");
+                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '/' opperation"));
                         break;
                     case (int)Operations.ModuleDivision:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " % ";
-                        HistoryLogger.Add($"Clicked on '%' opperation");
+                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '%' opperation"));
                         break;
                     case (int)Operations.DivisionByOne:
                         Calculate();
-                        HistoryLogger.Add($"Clicked on '1/x' opperation");
+                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '1/x' opperation"));
                         break;
                     case (int)Operations.Pow:
                         Calculate();
-                        HistoryLogger.Add($"Clicked on 'x^2' opperation");
+                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on 'x^2' opperation"));
                         break;
                     case (int)Operations.Sqrt:
                         Calculate();
-                        HistoryLogger.Add($"Clicked on 'sqrt(x)' opperation");
+                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on 'sqrt(x)' opperation"));
                         break;
                     default:
                         break;
@@ -98,7 +98,7 @@ namespace BlazorCLC.Components
 
         public void Calculate()
         {
-            HistoryLogger.Add($"Clicked on '=' operation");
+            HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '=' opperation"));
 
             CalculatorState.ValueSecond = "";
             try
@@ -160,7 +160,7 @@ namespace BlazorCLC.Components
         {
             if (CalculatorState.ValueFirst != null)
             {
-                HistoryLogger.Add($"Deleted last symbol");
+                HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Deleted last symbol"));
                 int length = CalculatorState.ValueFirst.Length - 1;
                 string line = CalculatorState.ValueFirst;
                 CalculatorState.ValueFirst = "";

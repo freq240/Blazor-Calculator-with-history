@@ -12,17 +12,24 @@
             <span class="history-param3a">Action</span>
         </div>
 
-
-        @foreach (var historyPoint in HistoryLoggerService.GetHistoryPoints())
+        @if (HistoryPointsList is null)
         {
-            <div class="history-point">
-                <span class="history-param1">@historyPoint.Id</span>
-                <span class="history-param2">@historyPoint.Datetime</span>
-                <span class="history-param3">@historyPoint.Action</span>
-                <br />
-
-            </div>
+            <p><em>Loading...</em></p>
         }
+        else
+        {
+            @foreach (var historyPoint in HistoryPointsList)
+            {
+                <div class="history-point">
+                    <span class="history-param1">@historyPoint.Id</span>
+                    <span class="history-param2">@historyPoint.Datetime</span>
+                    <span class="history-param3">@historyPoint.Action</span>
+                    <br />
+
+                </div>
+            }
+        }
+
 
 
         <br />
@@ -35,6 +42,10 @@
     <button type="button" class="btn defBtn defBtn-clcCI defBtn-correct"
             @onclick="() => CheckCorrectIdAndDeleteById(DeletedId)">
         Delete
+    </button>
+    <button type="button" class="btn defBtn defBtn-clcCI defBtn-correct"
+            @onclick="() => UpdateListWhenClearHistory()">
+        Clear all
     </button>
 
 </div>

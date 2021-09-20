@@ -15,18 +15,32 @@ namespace BlazorCLC.Components
         protected IHistoryLoggerService HistoryLoggerService { get; set; }
         private string DeletedId { get; set; }
 
+        List<HistoryPoint> HistoryPointsList { get; set; }
+        protected override async Task OnInitializedAsync()
+        {
+            HistoryPointsList = await Task.Run(() => HistoryLoggerService.GetAllHistoryPointsAsync());
+        }
 
         private void CheckCorrectIdAndDeleteById(string id)
         {
             try
             {
-                HistoryLoggerService.DeleteById(Convert.ToInt32(id));
+                HistoryLoggerService.DeleteHistoryPointAsync(Convert.ToInt32(id));
+
+                HistoryPointsList.Remove(HistoryPointsList.Find(x => x.Id == Convert.ToInt32(id)));
             }
-            catch
+            catch 
             {
-                // Some exception
-                // 
+
+               
             }
+        }
+
+        private void UpdateListWhenClearHistory()
+        {
+            HistoryLoggerService.ClearHistory();
+
+            HistoryPointsList.Clear();
         }
     }
 }

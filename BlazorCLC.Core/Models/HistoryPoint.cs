@@ -13,9 +13,8 @@ namespace BlazorCLC.Models
         public string Action { get; set; }
 
 
-        public HistoryPoint(int id, string action)
+        public HistoryPoint(string action)
         {
-            Id = id;
             Datetime = DateTime.Now;
             Action = action;
         }

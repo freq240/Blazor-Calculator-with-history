@@ -37,8 +37,7 @@ namespace BlazorCLC
 
             services.AddDbContext<HistoryLoggerContext>(options =>
                 options.UseSqlServer(
-                Configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(HistoryLoggerContext).Assembly.FullName)));
+                Configuration.GetConnectionString("DefaultConnection")));
 
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

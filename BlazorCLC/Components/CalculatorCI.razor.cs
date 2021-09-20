@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using BlazorCLC.Models;
 namespace BlazorCLC.Components
 {
     public partial class CalculatorCI
@@ -23,12 +23,12 @@ namespace BlazorCLC.Components
 
             if (CalculatorCIState.FlagCImenuActive)
             {
-                HistoryLogger.Add($"Closed CI menu");
+                HistoryLogger.InsertHistoryPointAsync(new HistoryPoint("Closed CI menu"));
                 CalculatorCIState.FlagCImenuActive = false;
             }
             else
             {
-                HistoryLogger.Add($"Opened CI menu");
+                HistoryLogger.InsertHistoryPointAsync(new HistoryPoint("Opened CI menu"));
                 CalculatorCIState.FlagCImenuActive = true;
             }
         }
@@ -51,7 +51,7 @@ namespace BlazorCLC.Components
                     CalculatorCIState.IncorrectInputCI = false;
 
                     CalculatorCIState.ValueCI = CalculatorCIService.Calculate(StartSum, PercentInYear, Times, Years);
-                    HistoryLogger.Add($"Calculated CI({StartSum},{PercentInYear},{Times},{Years})");
+                    HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Calculated CI({StartSum},{PercentInYear},{Times},{Years})"));
                 }
 
 
