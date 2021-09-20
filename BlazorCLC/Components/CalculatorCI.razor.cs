@@ -17,15 +17,6 @@ namespace BlazorCLC.Components
         [Inject]
         protected IHistoryLoggerService HistoryLogger { get; set; }
 
-        public CalculatorCI(IHistoryLoggerService _logger)
-        {
-            this.HistoryLogger = _logger;
-        }
-
-        public CalculatorCI()
-        {
-            // ТОЖЕ РАЗОБРАТЬСЯ ПОЧЕМУ ТРЕБУЕТ ПУСТОЙ КОНСТРУКТОР ЕСЛИ ЕСТЬ СВЕРХУ С ЛОГГЕРОМ
-        }
 
         public void ShowCompoundInterestMenu()
         {
@@ -46,12 +37,12 @@ namespace BlazorCLC.Components
         {
             try
             {
-                double ss = Convert.ToDouble(startSum);
-                double piy = Convert.ToDouble(percentInYear);
-                int t = Convert.ToInt32(times);
-                int y = Convert.ToInt32(years);
+                double StartSum = Convert.ToDouble(startSum);
+                double PercentInYear = Convert.ToDouble(percentInYear);
+                int Times = Convert.ToInt32(times);
+                int Years = Convert.ToInt32(years);
 
-                if (ss < 1 || piy < 0 || t < 1 || y < 1)
+                if (StartSum < 1 || PercentInYear < 0 || Times < 1 || Years < 1)
                 {
                     CalculatorCIState.IncorrectInputCI = true;
                 }
@@ -59,8 +50,8 @@ namespace BlazorCLC.Components
                 {
                     CalculatorCIState.IncorrectInputCI = false;
 
-                    CalculatorCIState.ValueCI = CalculatorCIService.Calculate(ss, piy, t, y);
-                    HistoryLogger.Add($"Calculated CI({ss},{piy},{t},{y})");
+                    CalculatorCIState.ValueCI = CalculatorCIService.Calculate(StartSum, PercentInYear, Times, Years);
+                    HistoryLogger.Add($"Calculated CI({StartSum},{PercentInYear},{Times},{Years})");
                 }
 
 

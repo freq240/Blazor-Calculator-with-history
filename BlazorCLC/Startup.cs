@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using BlazorCLC.Infrastract;
 
 namespace BlazorCLC
 {
@@ -32,6 +34,11 @@ namespace BlazorCLC
             services.AddServerSideBlazor();
 
             services.AddOwnServices();
+
+            services.AddDbContext<HistoryLoggerContext>(options =>
+                options.UseSqlServer(
+                Configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly(typeof(HistoryLoggerContext).Assembly.FullName)));
 
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

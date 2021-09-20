@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlazorCLC.Enums
 {
-    enum Operations : int
+    public enum Operations : int
     {
         Add = 1,
         Subtract = 2,

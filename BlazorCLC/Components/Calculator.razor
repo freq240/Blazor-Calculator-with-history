@@ -1,7 +1,9 @@
 ﻿@using BlazorCLC.Components;
+@using BlazorCLC.Enums;
+@code{
 
 
-
+}
 <div class="calculatorWrapper">
     <div class="textBar">
         <span class="valueSecond">@CalculatorState.ValueSecond</span>
@@ -9,44 +11,44 @@
     </div>
 
     <div class="buttonRow">
-        <button type="button" class="btn defBtn defBtn-opperation defBtn-three" @onclick="() => ButtonClick(5)">%</button>
+        <button type="button" class="btn defBtn defBtn-opperation defBtn-three" @onclick="() => CallOperation((int)Operations.ModuleDivision)">%</button>
 
 
-        <button type="button" class="btn defBtn defBtn-correct defBtn-three" @onclick="() => Clear(0)">C</button>
-        <button type="button" class="btn defBtn defBtn-correct defBtn-three" @onclick="() => Clear(1)">CE</button>
+        <button type="button" class="btn defBtn defBtn-correct defBtn-three" @onclick="() => ClearAll()">C</button>
+        <button type="button" class="btn defBtn defBtn-correct defBtn-three" @onclick="() => ClearLastSymbol()">CE</button>
     </div>
 
     <div class="buttonRow">
-        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => ButtonClick(6)">1/x</button>
-        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => ButtonClick(7)">x²</button>
-        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => ButtonClick(8)">√x</button>
-        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => ButtonClick(4)">/</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => CallOperation((int)Operations.DivisionByOne)">1/x</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => CallOperation((int)Operations.Pow)">x²</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => CallOperation((int)Operations.Sqrt)">√x</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => CallOperation((int)Operations.Division)">/</button>
     </div>
 
     <div class="buttonRow">
-        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => ButtonClick('7'.ToString())">7</button>
-        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => ButtonClick('8'.ToString())">8</button>
-        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => ButtonClick('9'.ToString())">9</button>
-        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => ButtonClick(3)">X</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => AddSymbolToInputString('7'.ToString())">7</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => AddSymbolToInputString('8'.ToString())">8</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => AddSymbolToInputString('9'.ToString())">9</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => CallOperation((int)Operations.Multiplication)">X</button>
+    </div>
+        
+    <div class="buttonRow">
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => AddSymbolToInputString('4'.ToString())">4</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => AddSymbolToInputString('5'.ToString())">5</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => AddSymbolToInputString('6'.ToString())">6</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => CallOperation((int)Operations.Subtract)">-</button>
     </div>
 
     <div class="buttonRow">
-        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => ButtonClick('4'.ToString())">4</button>
-        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => ButtonClick('5'.ToString())">5</button>
-        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => ButtonClick('6'.ToString())">6</button>
-        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => ButtonClick(2)">-</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => AddSymbolToInputString('1'.ToString())">1</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => AddSymbolToInputString('2'.ToString())">2</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => AddSymbolToInputString('3'.ToString())">3</button>
+        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => CallOperation((int)Operations.Add)">+</button>
     </div>
 
     <div class="buttonRow">
-        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => ButtonClick('1'.ToString())">1</button>
-        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => ButtonClick('2'.ToString())">2</button>
-        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => ButtonClick('3'.ToString())">3</button>
-        <button type="button" class="btn defBtn defBtn-opperation" @onclick="() => ButtonClick(1)">+</button>
-    </div>
-
-    <div class="buttonRow">
-        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => ButtonClick('.'.ToString())">.</button>
-        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => ButtonClick('0'.ToString())">0</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => AddSymbolToInputString('.'.ToString())">.</button>
+        <button type="button" class="btn defBtn defBtn-gray" @onclick="() => AddSymbolToInputString('0'.ToString())">0</button>
         <button type="button" class="btn defBtn defBtn-result " @onclick="() => Calculate()">=</button>
     </div>
 

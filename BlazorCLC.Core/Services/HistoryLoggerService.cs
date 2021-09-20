@@ -15,8 +15,14 @@ namespace BlazorCLC.Services
         public void Add(string action)
         {
             var historyPoint = new HistoryPoint(historyPoints.Count + 1, action);
-
             historyPoints.Add(historyPoint);
+            // Посмотреть references, добавить бд
+            //using (HistoryLoggerContext db = new UserContext())
+            //{
+                
+
+            //}
+            //    historyPoints.Add(historyPoint);
         }
 
         public IEnumerable<HistoryPoint> GetHistoryPoints()

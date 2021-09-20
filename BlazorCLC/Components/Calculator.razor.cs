@@ -1,4 +1,7 @@
-﻿using BlazorCLC.Interfaces;
+﻿using BlazorCLC.Enums;
+using BlazorCLC.Infrastract;
+using BlazorCLC.Interfaces;
+using BlazorCLC.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -9,7 +12,8 @@ namespace BlazorCLC.Components
 {
     public partial class Calculator
     {
-        
+        [Inject]
+        protected HistoryLoggerContext DBContext { get; set; }
         [Inject]
         protected ICalculatorService CalculatorService { get; set; }
         [Inject]
@@ -18,39 +22,32 @@ namespace BlazorCLC.Components
         protected IHistoryLoggerService HistoryLogger { get; set; }
 
 
-        public Calculator(IHistoryLoggerService _historyLogger)
-        {
-            this.HistoryLogger = _historyLogger;
-        }
 
-        public Calculator()
-        {
-            // Посмотреть что тут
-        }
+
 
         // digits
-        public void ButtonClick(string text)
+        public void AddSymbolToInputString(string symbol)
         {
             if (CalculatorState.ValueFirst != null)
             {
                 // checking on two dots in a row
-                if (!(CalculatorState.ValueFirst.Contains(".") && text == "."))
+                if (!(CalculatorState.ValueFirst.Contains(".") && symbol == "."))
                 {
-                    CalculatorState.ValueFirst += text;
+                    CalculatorState.ValueFirst += symbol;
 
-                    HistoryLogger.Add($"Clicked on '{text}' digit");
+                    HistoryLogger.Add($"Clicked on '{symbol}' digit");
                 }
             }
             else
             {
-                CalculatorState.ValueFirst += text;
+                CalculatorState.ValueFirst += symbol;
 
-                HistoryLogger.Add($"Clicked on '{text}' digit");
+                HistoryLogger.Add($"Clicked on '{symbol}' digit");
             }
         }
 
         // operation
-        public void ButtonClick(int operation)
+        public void CallOperation(int operation)
         {
             try
             {
@@ -60,35 +57,35 @@ namespace BlazorCLC.Components
 
                 switch (operation)
                 {
-                    case 1:
+                    case (int)Operations.Add:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " + ";
                         HistoryLogger.Add($"Clicked on '+' opperation");
                         break;
-                    case 2:
+                    case (int)Operations.Subtract:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " - ";
                         HistoryLogger.Add($"Clicked on '-' opperation");
                         break;
-                    case 3:
+                    case (int)Operations.Multiplication:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " * ";
                         HistoryLogger.Add($"Clicked on '*' opperation");
                         break;
-                    case 4:
+                    case (int)Operations.Division:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " / ";
                         HistoryLogger.Add($"Clicked on '/' opperation");
                         break;
-                    case 5:
+                    case (int)Operations.ModuleDivision:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " % ";
                         HistoryLogger.Add($"Clicked on '%' opperation");
                         break;
-                    case 6:
+                    case (int)Operations.DivisionByOne:
                         Calculate();
                         HistoryLogger.Add($"Clicked on '1/x' opperation");
                         break;
-                    case 7:
+                    case (int)Operations.Pow:
                         Calculate();
                         HistoryLogger.Add($"Clicked on 'x^2' opperation");
                         break;
-                    case 8:
+                    case (int)Operations.Sqrt:
                         Calculate();
                         HistoryLogger.Add($"Clicked on 'sqrt(x)' opperation");
                         break;
@@ -107,36 +104,36 @@ namespace BlazorCLC.Components
             try
             {
                 switch (CalculatorState.Operation)
-                {
-                    case 1:
+                {  
+                    case (int)Operations.Add:
                         CalculatorState.DigitSecond = CalculatorService.Add(CalculatorState.DigitFirst,double.Parse(CalculatorState.ValueFirst));
                         CalculatorState.ValueFirst = CalculatorState.DigitSecond.ToString();
                         break;
-                    case 2:
+                    case (int)Operations.Subtract:
                         CalculatorState.DigitSecond = CalculatorService.Subtract(CalculatorState.DigitFirst, double.Parse(CalculatorState.ValueFirst));
                         CalculatorState.ValueFirst = CalculatorState.DigitSecond.ToString();
                         break;
-                    case 3:
+                    case (int)Operations.Multiplication:
                         CalculatorState.DigitSecond = CalculatorService.Multiply(CalculatorState.DigitFirst, double.Parse(CalculatorState.ValueFirst));
                         CalculatorState.ValueFirst = CalculatorState.DigitSecond.ToString();
                         break;
-                    case 4:
+                    case (int)Operations.Division:
                         CalculatorState.DigitSecond = CalculatorService.Divide(CalculatorState.DigitFirst, double.Parse(CalculatorState.ValueFirst));
                         CalculatorState.ValueFirst = CalculatorState.DigitSecond.ToString();
                         break;
-                    case 5:
+                    case (int)Operations.ModuleDivision:
                         CalculatorState.DigitSecond = CalculatorService.ModuleDivide(CalculatorState.DigitFirst, double.Parse(CalculatorState.ValueFirst));
                         CalculatorState.ValueFirst = CalculatorState.DigitSecond.ToString();
                         break;
-                    case 6:
+                    case (int)Operations.DivisionByOne:
                         CalculatorState.DigitSecond = CalculatorService.DivideByOne(CalculatorState.DigitFirst);
                         CalculatorState.ValueFirst = CalculatorState.DigitSecond.ToString();
                         break;
-                    case 7:
+                    case (int)Operations.Pow:
                         CalculatorState.DigitSecond = CalculatorService.Pow(CalculatorState.DigitFirst);
                         CalculatorState.ValueFirst = CalculatorState.DigitSecond.ToString();
                         break;
-                    case 8:
+                    case (int)Operations.Sqrt:
                         CalculatorState.DigitSecond = CalculatorService.Sqrt(CalculatorState.DigitFirst);
                         CalculatorState.ValueFirst = CalculatorState.DigitSecond.ToString();
                         break;
@@ -152,39 +149,26 @@ namespace BlazorCLC.Components
             }
         }
 
-        public void Clear(int x)
+        public void ClearAll()
         {
+            // Delete and clear all
+            CalculatorState.ValueFirst = "";
+            CalculatorState.ValueSecond = "";
+        }
 
-            switch (x)
+        public void ClearLastSymbol()
+        {
+            if (CalculatorState.ValueFirst != null)
             {
-                case 0:
-                    HistoryLogger.Add($"Cleared all");
-
-                    // Delete and clear all
-                    CalculatorState.ValueFirst = "";
-                    CalculatorState.ValueSecond = "";
-                    break;
-                case 1:
-
-                    // Deleting last symbol
-
-                    if (CalculatorState.ValueFirst != null)
-                    {
-                        HistoryLogger.Add($"Deleted last symbol");
-                        int length = CalculatorState.ValueFirst.Length - 1;
-                        string line = CalculatorState.ValueFirst;
-                        CalculatorState.ValueFirst = "";
-                        for (int i = 0; i < length; i++)
-                        {
-                            CalculatorState.ValueFirst += line[i];
-                        }
-                    }
-                    break;
-
-                default:
-                    break;
+                HistoryLogger.Add($"Deleted last symbol");
+                int length = CalculatorState.ValueFirst.Length - 1;
+                string line = CalculatorState.ValueFirst;
+                CalculatorState.ValueFirst = "";
+                for (int i = 0; i < length; i++)
+                {
+                    CalculatorState.ValueFirst += line[i];
+                }
             }
-
         }
     }
 }
