@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlazorCLC.Core\BlazorCLC.Core.csproj" />
+    <ProjectReference Include="..\BlazorCLC.Infrastract\BlazorCLC.Infrastract.csproj" />
   </ItemGroup>
 
 </Project>

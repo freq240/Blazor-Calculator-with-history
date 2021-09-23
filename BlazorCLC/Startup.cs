@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using BlazorCLC.Infrastract;
+using MediatR;
+using BlazorCLC.Core;
 
 namespace BlazorCLC
 {
@@ -39,6 +41,10 @@ namespace BlazorCLC
                 options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection")));
 
+            var assembly = AppDomain.CurrentDomain.Load("BlazorCLC.Core");
+            services.AddMediatR(assembly);
+
+            //services.AddMediatR(typeof(MediatoREntryPoint).Assembly);
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorCLC.Models
+namespace BlazorCLC.Infrastract.Entities
 {
     public class HistoryPoint
     {

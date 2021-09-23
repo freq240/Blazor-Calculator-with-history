@@ -1,25 +1,27 @@
 ﻿using BlazorCLC.Enums;
 using BlazorCLC.Infrastract;
 using BlazorCLC.Interfaces;
-using BlazorCLC.Models;
+using BlazorCLC.Infrastract.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorCLC.Services;
+using BlazorCLC.Core.Interfaces;
+using BlazorCLC.Core.Commands;
 
 namespace BlazorCLC.Components
 {
     public partial class Calculator
     {
         [Inject]
-        protected HistoryLoggerContext DBContext { get; set; }
-        [Inject]
         protected ICalculatorService CalculatorService { get; set; }
         [Inject]
         protected ICalculatorState CalculatorState { get; set; }
         [Inject]
-        protected IHistoryLoggerService HistoryLogger { get; set; }
+        protected IMediator Mediator { get; set; }
 
 
 
@@ -35,14 +37,14 @@ namespace BlazorCLC.Components
                 {
                     CalculatorState.ValueFirst += symbol;
 
-                    HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '{symbol}' digit"));
+                    Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '{symbol}' digit")));
                 }
             }
             else
             {
                 CalculatorState.ValueFirst += symbol;
 
-                HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '{symbol}' digit"));
+                Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '{symbol}' digit")));
             }
         }
 
@@ -59,35 +61,35 @@ namespace BlazorCLC.Components
                 {
                     case (int)Operations.Add:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " + ";
-                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '+' opperation"));
+                        Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '+' opperation")));
                         break;
                     case (int)Operations.Subtract:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " - ";
-                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '-' opperation"));
+                        Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '-' opperation")));
                         break;
                     case (int)Operations.Multiplication:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " * ";
-                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '*' opperation"));
+                        Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '*' opperation")));
                         break;
                     case (int)Operations.Division:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " / ";
-                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '/' opperation"));
+                        Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '/' opperation")));
                         break;
                     case (int)Operations.ModuleDivision:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " % ";
-                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '%' opperation"));
+                        Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '%' opperation")));
                         break;
                     case (int)Operations.DivisionByOne:
                         Calculate();
-                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '1/x' opperation"));
+                        Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '1/x' opperation")));
                         break;
                     case (int)Operations.Pow:
                         Calculate();
-                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on 'x^2' opperation"));
+                        Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on 'x^2' opperation")));
                         break;
                     case (int)Operations.Sqrt:
                         Calculate();
-                        HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on 'sqrt(x)' opperation"));
+                        Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on 'sqrt(x)' opperation")));
                         break;
                     default:
                         break;
@@ -98,7 +100,7 @@ namespace BlazorCLC.Components
 
         public void Calculate()
         {
-            HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Clicked on '=' opperation"));
+            Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '=' opperation")));
 
             CalculatorState.ValueSecond = "";
             try
@@ -160,7 +162,7 @@ namespace BlazorCLC.Components
         {
             if (CalculatorState.ValueFirst != null)
             {
-                HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Deleted last symbol"));
+                Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Deleted last symbol")));
                 int length = CalculatorState.ValueFirst.Length - 1;
                 string line = CalculatorState.ValueFirst;
                 CalculatorState.ValueFirst = "";

@@ -6,6 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlazorCLC.Models;
+using BlazorCLC.Infrastract.Entities;
+using BlazorCLC.Core.Interfaces;
+using MediatR;
+using BlazorCLC.Core.Commands;
+
 namespace BlazorCLC.Components
 {
     public partial class CalculatorCI
@@ -15,7 +20,7 @@ namespace BlazorCLC.Components
         [Inject]
         protected ICalculatorCIService CalculatorCIService { get; set; }
         [Inject]
-        protected IHistoryLoggerService HistoryLogger { get; set; }
+        protected IMediator Mediator { get; set; }
 
 
         public void ShowCompoundInterestMenu()
@@ -23,12 +28,12 @@ namespace BlazorCLC.Components
 
             if (CalculatorCIState.FlagCImenuActive)
             {
-                HistoryLogger.InsertHistoryPointAsync(new HistoryPoint("Closed CI menu"));
+                Mediator.Send(new AddHistoryPointCommand(new HistoryPoint("Closed CI menu")));
                 CalculatorCIState.FlagCImenuActive = false;
             }
             else
             {
-                HistoryLogger.InsertHistoryPointAsync(new HistoryPoint("Opened CI menu"));
+                Mediator.Send(new AddHistoryPointCommand(new HistoryPoint("Opened CI menu")));
                 CalculatorCIState.FlagCImenuActive = true;
             }
         }
@@ -51,7 +56,7 @@ namespace BlazorCLC.Components
                     CalculatorCIState.IncorrectInputCI = false;
 
                     CalculatorCIState.ValueCI = CalculatorCIService.Calculate(StartSum, PercentInYear, Times, Years);
-                    HistoryLogger.InsertHistoryPointAsync(new HistoryPoint($"Calculated CI({StartSum},{PercentInYear},{Times},{Years})"));
+                    Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Calculated CI({StartSum},{PercentInYear},{Times},{Years})")));
                 }
 
 

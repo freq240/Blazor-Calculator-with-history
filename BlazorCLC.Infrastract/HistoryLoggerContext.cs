@@ -1,4 +1,4 @@
-﻿using BlazorCLC.Models;
+﻿using BlazorCLC.Infrastract.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

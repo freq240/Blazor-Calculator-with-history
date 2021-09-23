@@ -1,46 +1,44 @@
 ﻿using BlazorCLC.Infrastract;
 using BlazorCLC.Interfaces;
-using BlazorCLC.Models;
+using BlazorCLC.Infrastract.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BlazorCLC.Infrastract.Extensions;
 
+
 namespace BlazorCLC.Services
 {
-    public class HistoryLoggerService : IHistoryLoggerService
+    public class HistoryPointRepository : IHistoryPointRepository
     {
         protected HistoryLoggerContext HistoryLoggerContext { get; set; }
 
-        public HistoryLoggerService(HistoryLoggerContext _historyLoggerContext)
+        public HistoryPointRepository(HistoryLoggerContext _historyLoggerContext)
         {
             HistoryLoggerContext = _historyLoggerContext;
         }
-        public async Task<List<HistoryPoint>> GetAllHistoryPointsAsync()
+        public Task<List<HistoryPoint>> GetAllHistoryPointsAsync()
         {
-            return await HistoryLoggerContext.HistoryPoints.ToListAsync();
+            return HistoryLoggerContext.HistoryPoints.ToListAsync();
         }
 
-        public async Task<bool> InsertHistoryPointAsync(HistoryPoint historyPoint)
+        public async Task AddHistoryPointAsync(HistoryPoint historyPoint)
         {
             await HistoryLoggerContext.HistoryPoints.AddAsync(historyPoint);
             await HistoryLoggerContext.SaveChangesAsync();
-            return true;
         }
 
-        public async Task<bool> DeleteHistoryPointAsync(int Id)
+        public async Task DeleteHistoryPointAsync(int Id)
         {
             HistoryPoint hp = await HistoryLoggerContext.HistoryPoints.FirstOrDefaultAsync(c => c.Id.Equals(Id));
             HistoryLoggerContext.Remove(hp);
             await HistoryLoggerContext.SaveChangesAsync();
-            return true;
         }
 
-        public async Task<bool> ClearHistory()
+        public async Task ClearHistory()
         {
             HistoryLoggerContext.HistoryPoints.Clear();
             await HistoryLoggerContext.SaveChangesAsync();
-            return true;
         }
 
     }
