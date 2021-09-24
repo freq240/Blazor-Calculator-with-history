@@ -57,37 +57,37 @@ namespace BlazorCLC.Components
                 CalculatorState.ValueFirst = "";
                 CalculatorState.Operation = operation;
 
-                switch (operation)
+                switch ((Operations)operation)
                 {
-                    case (int)Operations.Add:
+                    case Operations.Add:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " + ";
                         Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '+' opperation")));
                         break;
-                    case (int)Operations.Subtract:
+                    case Operations.Subtract:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " - ";
                         Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '-' opperation")));
                         break;
-                    case (int)Operations.Multiplication:
+                    case Operations.Multiplication:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " * ";
                         Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '*' opperation")));
                         break;
-                    case (int)Operations.Division:
+                    case Operations.Division:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " / ";
                         Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '/' opperation")));
                         break;
-                    case (int)Operations.ModuleDivision:
+                    case Operations.ModuleDivision:
                         CalculatorState.ValueSecond = CalculatorState.DigitFirst.ToString() + " % ";
                         Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '%' opperation")));
                         break;
-                    case (int)Operations.DivisionByOne:
+                    case Operations.DivisionByOne:
                         Calculate();
                         Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on '1/x' opperation")));
                         break;
-                    case (int)Operations.Pow:
+                    case Operations.Pow:
                         Calculate();
                         Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on 'x^2' opperation")));
                         break;
-                    case (int)Operations.Sqrt:
+                    case Operations.Sqrt:
                         Calculate();
                         Mediator.Send(new AddHistoryPointCommand(new HistoryPoint($"Clicked on 'sqrt(x)' opperation")));
                         break;
